@@ -2,12 +2,12 @@ import { createStore } from 'redux';
 import { List } from 'immutable';
 
 import { StoreState, getInitialState } from '../store';
-import { Action, fetchForecastSucceeded, fetchForecastFailed, changeDay, changeUnits, fetchForecast } from '../actions';
+import { Action, setLocation, fetchForecastSucceeded, fetchForecastFailed, changeDay, changeUnits, fetchForecast } from '../actions';
 import { WeatherType, Forecast } from '../types';
 import { reducer } from './index';
 
 describe('reducer', () => {
-    let state;
+    let state: StoreState;
 
     beforeEach(() => {
         const store = createStore<StoreState, Action, any, any>(reducer, getInitialState());
@@ -15,14 +15,17 @@ describe('reducer', () => {
     });
 
     it('successfully fetching a forecast updates the forecast field', () => {
-        const fetch = fetchForecast('London');
+        const setLocationAction = setLocation('London');
+        state = reducer(state, setLocationAction);
 
         const expectedState = getInitialState();
         expectedState.location = 'London';
-        expectedState.isFetchingForecast = true;
+        expectedState.isFetchingForecast = false;
+        expect(state).toEqual(expectedState);
 
-        state = reducer(state, fetch);
-        
+        const fetchAction = fetchForecast();
+        state = reducer(state, fetchAction);
+        expectedState.isFetchingForecast = true;
         expect(state).toEqual(expectedState);
 
         const forecast: Forecast = {
@@ -35,35 +38,37 @@ describe('reducer', () => {
                 }
             )
         };
-        const success = fetchForecastSucceeded(forecast);
-
+        const successAction = fetchForecastSucceeded(forecast);
+        state = reducer(state, successAction);
         expectedState.isFetchingForecast = false;
         expectedState.forecast = forecast;
-
-        state = reducer(state, success);
         expect(state).toEqual(expectedState);
     });
 
     it('failing to fetch a forecast sets the error field', () => {
-        const fetch = fetchForecast('London');
-
+        // initially try to fetch without setting location
+        const fetchAction = fetchForecast();
+        state = reducer(state, fetchAction);
         const expectedState = getInitialState();
+        expectedState.isFetchingForecast = false;
+        expect(state).toEqual(expectedState);
+
+        // set location and try again
+        const setLocationAction = setLocation('London');
+        state = reducer(state, setLocationAction);
+        state = reducer(state, fetchAction);
         expectedState.location = 'London';
         expectedState.isFetchingForecast = true;
-
-        state = reducer(state, fetch);
         expect(state).toEqual(expectedState);
 
         const failed = fetchForecastFailed('Oops!');
-
+        state = reducer(state, failed)
         expectedState.isFetchingForecast = false;
         expectedState.error = 'Oops!';
-
-        state = reducer(state, failed)
         expect(state).toEqual(expectedState);
 
         // and a later successful fetch clears it
-        const success = fetchForecastSucceeded(null);
+        const success = fetchForecastSucceeded({dailyForecasts: List()});
         state = reducer(state, success);
         expect(state.error).toBeUndefined();
     });

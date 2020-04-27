@@ -1,5 +1,5 @@
-import { Action, FETCH_FORECAST, FETCH_FORECAST_SUCCEEDED, FETCH_FORECAST_FAILED, CHANGE_DAY, CHANGE_UNITS,
-    fetchForecast, fetchForecastSucceeded, fetchForecastFailed, changeDay, changeUnits, FetchForecastAction, FetchForecastFailedAction, ChangeDayAction, ChangeUnitsAction, FetchForecastSucceededAction } from '../actions/index';
+import { Action, SET_LOCATION, FETCH_FORECAST, FETCH_FORECAST_SUCCEEDED, FETCH_FORECAST_FAILED, CHANGE_DAY, CHANGE_UNITS,
+    FetchForecastFailedAction, ChangeDayAction, ChangeUnitsAction, FetchForecastSucceededAction, SetLocationAction } from '../actions/index';
 import { getInitialState, StoreState } from '../store';
 
 /**
@@ -10,9 +10,17 @@ import { getInitialState, StoreState } from '../store';
  */
 export function reducer(state = getInitialState(), action: Action): StoreState {
     switch (action.type) {
+        case SET_LOCATION: {
+            const {payload: {location}} = action as SetLocationAction;
+            return {...state, location: location};
+        }
         case FETCH_FORECAST: {
-            const {payload: {location}} = action as FetchForecastAction;
-            return {...state, isFetchingForecast: true, location: location};
+            if (state.location) {
+                return {...state, isFetchingForecast: true};
+            } else {
+                // no location set yet
+                return state;
+            }
         }
         case FETCH_FORECAST_SUCCEEDED: {
             const {payload: {forecast}} = action as FetchForecastSucceededAction;
@@ -31,4 +39,5 @@ export function reducer(state = getInitialState(), action: Action): StoreState {
             return {...state, useCentigrade: isCentigrade};
         }
     }
+    return state;
 }

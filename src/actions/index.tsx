@@ -4,6 +4,9 @@ import {Forecast} from '../types';
 // Action constants
 //
 
+export const SET_LOCATION = 'SET_LOCATION';
+type SET_LOCATION = typeof SET_LOCATION;
+
 export const FETCH_FORECAST = 'FETCH_FORECAST';
 type FETCH_FORECAST = typeof FETCH_FORECAST;
 
@@ -25,14 +28,18 @@ type CHANGE_UNITS = typeof CHANGE_UNITS;
 
 export interface Action {
     type: any;
-    payload: any; 
+    payload?: any; 
+}
+
+export interface SetLocationAction extends Action {
+    type: SET_LOCATION;
+    payload: {
+        location: string;
+    }
 }
 
 export interface FetchForecastAction extends Action {
     type: FETCH_FORECAST;
-    payload: {
-        location: string;
-    }
 };
 
 export interface FetchForecastSucceededAction extends Action {
@@ -63,23 +70,22 @@ export interface ChangeUnitsAction extends Action {
     }
 }
 
-// todo remove?
-// export type ActionTypes = FetchForecastAction
-//     | FetchForecastSucceededAction
-//     | FetchForecastFailedAction
-//     | ChangeDayAction
-//     | ChangeUnitsAction;
-
 //
 // Action creators
 //
 
-export function fetchForecast(location: string): FetchForecastAction {
+export function setLocation(location: string): SetLocationAction {
     return {
-        type: FETCH_FORECAST,
+        type: SET_LOCATION,
         payload: {
             location,
         },
+    }
+}
+
+export function fetchForecast(): FetchForecastAction {
+    return {
+        type: FETCH_FORECAST,
     };
 }
 
