@@ -9,7 +9,7 @@ import { Action, fetchForecast, setLocation } from '../actions';
 import { reducer } from '../reducers';
 
 describe('search controls', () => {
-    const renderWithStoreState = ((state) => {
+    const renderWithStoreState = ((state: StoreState) => {
         const store = createStore<StoreState, Action, any, any>(reducer, state);
         store.dispatch = jest.fn();
         const renderResult = render(<Provider store={store}><Search /></Provider>);
@@ -55,7 +55,7 @@ describe('search controls', () => {
     it('entering a location fires appropriate action', () => {
         const {store, renderResult: {getByTestId}} = renderWithStoreState(getInitialState());
         
-        const locationElement = getByTestId('search-location');
+        const locationElement: HTMLInputElement = getByTestId('search-location') as HTMLInputElement;
 
         fireEvent.change(locationElement, { target: { value: 'Chatham' }})
         expect(store.dispatch).toHaveBeenCalledTimes(1);
