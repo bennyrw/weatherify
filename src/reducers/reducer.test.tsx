@@ -3,7 +3,7 @@ import { List } from 'immutable';
 
 import { StoreState, getInitialState } from '../store';
 import { Action, setLocation, fetchForecastSucceeded, fetchForecastFailed, changeDay, changeUnits, fetchForecast } from '../actions';
-import { WeatherType, Forecast } from '../types';
+import { Forecast } from '../types';
 import { reducer } from './index';
 
 describe('reducer', () => {
@@ -31,7 +31,7 @@ describe('reducer', () => {
         const forecast: Forecast = {
             dailyForecasts: List.of(
                 {
-                    prevailingWeather: WeatherType.SUNNY,
+                    weatherIconUrl: 'someUrl',
                     date: new Date(),
                     temperatureInCentigrade: 33.2,
                     pressureInMillibars: 1010,
