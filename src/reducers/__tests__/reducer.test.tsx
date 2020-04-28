@@ -1,10 +1,10 @@
 import { createStore } from 'redux';
 import { List } from 'immutable';
 
-import { StoreState, getInitialState } from '../store';
-import { Action, setLocation, fetchForecastSucceeded, fetchForecastFailed, changeDay, changeUnits, fetchForecast } from '../actions';
-import { Forecast } from '../types';
-import { reducer } from './index';
+import { StoreState, getInitialState } from '../../store';
+import { Action, setLocation, fetchForecastSucceeded, fetchForecastFailed, changeDay, changeUnits, fetchForecast } from '../../actions';
+import { Forecast } from '../../types';
+import { reducer } from '../index';
 
 describe('reducer', () => {
     let state: StoreState;
