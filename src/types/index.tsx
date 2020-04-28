@@ -1,19 +1,14 @@
 import {List} from 'immutable';
 
-export enum WeatherType {
-    SUNNY,
-    RAINY,
-    SNOWY
-    // TODO
-}
-
 export interface DailyForecast {
-    prevailingWeather: WeatherType;
+    weatherIconUrl: string;
     date: Date;
     temperatureInCentigrade: number;
     pressureInMillibars: number;
 }
 
 export interface Forecast {
-    dailyForecasts: List<DailyForecast>
+    // todo
+    locationMap?: string;
+    dailyForecasts: List<DailyForecast>;
 }
