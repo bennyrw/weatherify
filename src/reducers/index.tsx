@@ -27,7 +27,9 @@ export function reducer(state = getInitialState(), action: Action): StoreState {
             return {...state, isFetchingForecast: false, error: undefined, forecast};
         }
         case FETCH_FORECAST_FAILED: {
-            const {payload: {error}} = action as FetchForecastFailedAction;
+            const {payload: {errorKey}} = action as FetchForecastFailedAction;
+            // todo - translation
+            const error = errorKey;
             return {...state, isFetchingForecast: false, error};
         }
         case CHANGE_DAY: {

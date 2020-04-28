@@ -1,26 +1,24 @@
-import {Forecast, DailyForecast} from '../types';
+import {WeatherData} from '../types';
 import { List } from 'immutable';
 
-export async function getLocationForecast(longitude: number, latitude: number): Promise<Forecast> {
+export async function getLocationDailyWeather(longitude: number, latitude: number): Promise<List<WeatherData>> {
     try {
         const response = await fetch(getRequestUrl(longitude, latitude));
         const json = await response.json();
-        const dailyData = json.daily as Array<DailyForecastData>
+        const dailyData = json.daily as Array<ApiDailyData>
 
-        return {
-            dailyForecasts: List(dailyData.map(parseDailyForecast)),
-        };
+        return List(dailyData.map(parseDailyData));
     } catch (e) {
         throw new Error(`Failed to get weather for location, error: ${e.message}`);
     }
 }
 
-type WeatherItem = {
+type ApiWeatherItem = {
     // icon code for the weather
     icon: string;
 }
 
-type DailyForecastData = {
+type ApiDailyData = {
     // unix timestamp of forecast, UTC
     dt: number;
     temp: {
@@ -30,14 +28,14 @@ type DailyForecastData = {
     // atmospheric pressure in millibars
     pressure: number;
     // prevailing weather information (single length array)
-    weather: Array<WeatherItem>;
+    weather: Array<ApiWeatherItem>;
 
     // many more fields available: https://openweathermap.org/api/one-call-api
 }
 
-function parseDailyForecast(dailyData: DailyForecastData): DailyForecast {
+function parseDailyData(dailyData: ApiDailyData): WeatherData {
     return {
-        weatherIconUrl: getIconUrl(dailyData.weather[0].icon),
+        iconUrl: getIconUrl(dailyData.weather[0].icon),
         date: new Date(dailyData.dt * 1000),
         temperatureInCentigrade: dailyData.temp.day,
         pressureInMillibars: dailyData.pressure,
