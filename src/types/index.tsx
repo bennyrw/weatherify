@@ -1,14 +1,13 @@
 import {List} from 'immutable';
 
-export interface DailyForecast {
-    weatherIconUrl: string;
+export interface WeatherData {
+    iconUrl: string;
     date: Date;
     temperatureInCentigrade: number;
     pressureInMillibars: number;
 }
 
 export interface Forecast {
-    // todo
-    locationMap?: string;
-    dailyForecasts: List<DailyForecast>;
+    locationMapUrl: string;
+    dailyWeather: List<WeatherData>;
 }

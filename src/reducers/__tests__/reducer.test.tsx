@@ -29,9 +29,10 @@ describe('reducer', () => {
         expect(state).toEqual(expectedState);
 
         const forecast: Forecast = {
-            dailyForecasts: List.of(
+            locationMapUrl: 'someMapUrl',
+            dailyWeather: List.of(
                 {
-                    weatherIconUrl: 'someUrl',
+                    iconUrl: 'someIconUrl',
                     date: new Date(),
                     temperatureInCentigrade: 33.2,
                     pressureInMillibars: 1010,
@@ -68,7 +69,7 @@ describe('reducer', () => {
         expect(state).toEqual(expectedState);
 
         // and a later successful fetch clears it
-        const success = fetchForecastSucceeded({dailyForecasts: List()});
+        const success = fetchForecastSucceeded({locationMapUrl: 'someMapUrl', dailyWeather: List()});
         state = reducer(state, success);
         expect(state.error).toBeUndefined();
     });

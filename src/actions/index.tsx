@@ -52,7 +52,7 @@ export interface FetchForecastSucceededAction extends Action {
 export interface FetchForecastFailedAction extends Action {
     type: FETCH_FORECAST_FAILED;
     payload: {
-        error: string;
+        errorKey: string;
     }
 }
 
@@ -98,11 +98,11 @@ export function fetchForecastSucceeded(forecast: Forecast): FetchForecastSucceed
     };
 }
 
-export function fetchForecastFailed(error: string): FetchForecastFailedAction {
+export function fetchForecastFailed(errorKey: string): FetchForecastFailedAction {
     return {
         type: FETCH_FORECAST_FAILED,
         payload: {
-            error,
+            errorKey,
         }
     }
 }
