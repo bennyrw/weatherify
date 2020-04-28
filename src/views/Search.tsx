@@ -3,12 +3,7 @@ import {connect} from 'react-redux';
 
 import {StoreState} from '../store';
 import {fetchForecast, setLocation} from '../actions';
-
-function bem(className: string, modifiers: object = {}) {
-    return Object.entries(modifiers).reduce((acc, entry) => {
-        return `${acc} ${acc}--${entry[0]}--${entry[1]}`;
-    }, className);
-}
+import {bem} from './viewUtils';
 
 function Search({location, onSetLocation, onSearch}: SearchProps) {
     const buttonEnabled = Boolean(location);

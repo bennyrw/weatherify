@@ -3,10 +3,10 @@ import { createStore, Store } from 'redux';
 import { Provider } from 'react-redux';
 import { render, RenderResult, fireEvent } from '@testing-library/react';
 
-import Search from './Search';
-import { StoreState, getInitialState } from '../store';
-import { Action, fetchForecast, setLocation } from '../actions';
-import { reducer } from '../reducers';
+import Search from '../Search';
+import { StoreState, getInitialState } from '../../store';
+import { Action, fetchForecast, setLocation } from '../../actions';
+import { reducer } from '../../reducers';
 
 describe('search controls', () => {
     const renderWithStoreState = ((state: StoreState) => {
