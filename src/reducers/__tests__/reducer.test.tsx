@@ -69,8 +69,7 @@ describe('reducer', () => {
         expect(state).toEqual(expectedState);
 
         // and a later successful fetch clears it
-        const success = fetchForecastSucceeded({locationMapUrl: 'someMapUrl', dailyWeather: List()});
-        state = reducer(state, success);
+        state = reducer(state, fetchAction);
         expect(state.error).toBeUndefined();
     });
 

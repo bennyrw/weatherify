@@ -16,7 +16,7 @@ export function reducer(state = getInitialState(), action: Action): StoreState {
         }
         case FETCH_FORECAST: {
             if (state.location) {
-                return {...state, isFetchingForecast: true};
+                return {...state, isFetchingForecast: true, error: undefined};
             } else {
                 // no location set yet
                 return state;
@@ -24,7 +24,7 @@ export function reducer(state = getInitialState(), action: Action): StoreState {
         }
         case FETCH_FORECAST_SUCCEEDED: {
             const {payload: {forecast}} = action as FetchForecastSucceededAction;
-            return {...state, isFetchingForecast: false, error: undefined, forecast};
+            return {...state, isFetchingForecast: false, forecast};
         }
         case FETCH_FORECAST_FAILED: {
             const {payload: {errorKey}} = action as FetchForecastFailedAction;
