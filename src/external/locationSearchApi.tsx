@@ -7,7 +7,7 @@ export async function getCoordinatesForLocation(location: string): Promise<Coord
     try {
         const response = await fetch(getRequestUrl(location));
         const json = await response.json();
-        if (json.length == 1) {
+        if (json.length === 1) {
             return {
                 longitude: Number(json[0].lon),
                 latitude: Number(json[0].lat),

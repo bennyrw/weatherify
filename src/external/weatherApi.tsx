@@ -7,6 +7,7 @@ export async function getLocationDailyWeather(longitude: number, latitude: numbe
         const json = await response.json();
         const dailyData = json.daily as Array<ApiDailyData>
 
+        // todo - we only want max 5 according to spec
         return List(dailyData.map(parseDailyData));
     } catch (e) {
         throw new Error(`Failed to get weather for location, error: ${e.message}`);
