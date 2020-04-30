@@ -48,19 +48,9 @@ describe('search controls', () => {
 
         searchButton.click();
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        // expect dispatch to be called for setting location + firing search
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledWith(setLocation('London'));
         expect(store.dispatch).toHaveBeenCalledWith(fetchForecast());
-    });
-
-    it('entering a location fires appropriate action', () => {
-        const {store, renderResult: {getByTestId}} = renderWithStoreState(getInitialState());
-        
-        const locationElement: HTMLInputElement = getByTestId('search-location') as HTMLInputElement;
-
-        fireEvent.change(locationElement, { target: { value: 'Chatham' }})
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        const setLocationAction = setLocation('Chatham');
-        expect(store.dispatch).toHaveBeenCalledWith(setLocationAction);
-        expect(locationElement.value).toBe('Chatham');
     });
 });
