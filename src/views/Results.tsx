@@ -30,7 +30,7 @@ function ResultsPanel(props: Props) {
     return null;
   }
 
-  const map = <img src={forecast.locationMapUrl} width="100%" />;
+  const map = <img alt="location map" src={forecast.locationMapUrl} width="100%" />;
 
   // layout varies based on screen width
   if (isSmallScreen) {

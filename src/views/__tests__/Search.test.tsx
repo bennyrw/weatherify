@@ -1,7 +1,7 @@
 import React from 'react';
-import { createStore, Store } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { render, RenderResult, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import Search from '../Search';
 import { StoreState, getInitialState } from '../../store';

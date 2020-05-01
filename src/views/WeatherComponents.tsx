@@ -43,7 +43,7 @@ function WeatherComponents(props: Props) {
         {!isSmallScreen && renderTemperatureUnitsToggleGridItem(props)}
         <Grid item xs={isSmallScreen ? 6 : 12}>
           <Grid container justify="center">
-            <img src={dailyWeather.iconUrl} width="50%"/>
+            <img alt="weather icon" src={dailyWeather.iconUrl} width="50%"/>
           </Grid>
         </Grid>
         <Grid item xs={isSmallScreen ? 6 : 12}>
