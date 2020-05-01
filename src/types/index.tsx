@@ -1,4 +1,4 @@
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export interface WeatherData {
     iconUrl: string;
@@ -10,4 +10,8 @@ export interface WeatherData {
 export interface Forecast {
     locationMapUrl: string;
     dailyWeather: List<WeatherData>;
+}
+
+export interface Dictionary<T> {
+    [key: string]: T;
 }

@@ -21,6 +21,10 @@ interface Props {
 const CENTIGRADE_LABEL = '°C';
 const FAHRENHEIT_LABEL = '°F';
 
+/**
+ * Component that renders the weather sub-components - the temperature toggle, weather icon,
+ * temperature and pressure. Supports responsive layout.
+ */
 function WeatherComponents(props: Props) {
   const { isSmallScreen, forecast, forecastDayIndex, useCentigrade } = props;
 
@@ -30,7 +34,7 @@ function WeatherComponents(props: Props) {
 
   const dailyWeather = forecast.dailyWeather.get(forecastDayIndex) as WeatherData;
   const convertToFahrenheit = (centigrade: number) => (centigrade * 9 / 5) + 32;
-  const formatTo1dp = (n : number) => Math.round(10 * n) / 10;
+  const formatTo1dp = (n: number) => Math.round(10 * n) / 10;
   const temperatureValue = useCentigrade ?
     formatTo1dp(dailyWeather.temperatureInCentigrade) :
     formatTo1dp(convertToFahrenheit(dailyWeather.temperatureInCentigrade));
@@ -43,7 +47,7 @@ function WeatherComponents(props: Props) {
         {!isSmallScreen && renderTemperatureUnitsToggleGridItem(props)}
         <Grid item xs={isSmallScreen ? 6 : 12}>
           <Grid container justify="center">
-            <img alt="weather icon" src={dailyWeather.iconUrl} width="50%"/>
+            <img alt="weather icon" src={dailyWeather.iconUrl} width="50%" />
           </Grid>
         </Grid>
         <Grid item xs={isSmallScreen ? 6 : 12}>

@@ -23,8 +23,8 @@ describe('search controls', () => {
         const state = getInitialState();
         state.location = '';
 
-        const {renderResult: {getByTestId}} = renderWithStoreState(state);
-        
+        const { renderResult: { getByTestId } } = renderWithStoreState(state);
+
         const locationElement = getByTestId('search-location');
         expect(locationElement).toBeVisible();
 
@@ -37,8 +37,8 @@ describe('search controls', () => {
         const state = getInitialState();
         state.location = 'London';
 
-        const {store, renderResult: {getByTestId}} = renderWithStoreState(state);
-        
+        const { store, renderResult: { getByTestId } } = renderWithStoreState(state);
+
         const locationElement = getByTestId('search-location');
         expect(locationElement).toBeVisible();
 

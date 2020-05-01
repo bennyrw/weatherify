@@ -1,4 +1,4 @@
-import {Forecast} from '../types';
+import { Forecast } from '../types';
 
 //
 // Action constants
@@ -28,7 +28,7 @@ type CHANGE_UNITS = typeof CHANGE_UNITS;
 
 export interface Action {
     type: any;
-    payload?: any; 
+    payload?: any;
 }
 
 export interface SetLocationAction extends Action {

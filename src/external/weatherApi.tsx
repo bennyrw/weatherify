@@ -1,4 +1,4 @@
-import {WeatherData} from '../types';
+import { WeatherData } from '../types';
 import { List } from 'immutable';
 
 export async function getLocationDailyWeather(longitude: number, latitude: number): Promise<List<WeatherData>> {
