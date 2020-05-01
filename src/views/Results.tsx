@@ -13,6 +13,7 @@ import { StoreState } from '../store';
 import { Forecast } from '../types';
 import WeatherComponents from './WeatherComponents';
 import { changeDay } from '../actions';
+import { getText, LOCALE } from '../constants';
 
 interface Props {
   forecast?: Forecast;
@@ -22,7 +23,6 @@ interface Props {
 
 function ResultsPanel(props: Props) {
   const { forecast } = props;
-  // todo - is this best practice?
   const isSmallScreen = !useMediaQuery('(min-width:800px)');
   const styles = useStyles();
 
@@ -30,7 +30,12 @@ function ResultsPanel(props: Props) {
     return null;
   }
 
-  const map = <img alt="location map" src={forecast.locationMapUrl} width="100%" />;
+  const mapSize = isSmallScreen ? '50%' : '100%';
+  const map = (
+    <div className={styles.map}>
+      <img alt="location map" src={forecast.locationMapUrl} width={mapSize} />
+    </div>
+  );
 
   // layout varies based on screen width
   if (isSmallScreen) {
@@ -70,10 +75,9 @@ function renderChangeDaySlider({ forecast, forecastDayIndex, onChangeDay }: Prop
   const dailyWeather = (forecast as Forecast).dailyWeather;
   let dayIndex = 0;
   const marks: List<Mark> = dailyWeather.map(weatherData => {
-    // todo not localised
     const day = dayIndex === 0 ?
-      'Now' :
-      weatherData.date.toLocaleString('en-us', { weekday: 'short' });
+      getText('now') :
+      weatherData.date.toLocaleString(LOCALE, { weekday: 'short' });
     return {
       value: dayIndex++,
       label: <Typography>{day}</Typography>
@@ -91,6 +95,10 @@ function renderChangeDaySlider({ forecast, forecastDayIndex, onChangeDay }: Prop
 }
 
 const useStyles = makeStyles((theme) => ({
+  map: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   slider: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(6),

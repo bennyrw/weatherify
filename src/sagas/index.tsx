@@ -24,7 +24,7 @@ function* fetchForecast() {
             return yield put(fetchForecastFailed('fetch-location-not-found'));
         }
 
-        const {longitude, latitude} = coords;
+        const { longitude, latitude } = coords;
         const locationMapUrl = yield call(getLocationMapURL, longitude, latitude);
         const dailyWeather = yield call(getLocationDailyWeather, longitude, latitude);
         return yield put(fetchForecastSucceeded({
@@ -33,7 +33,6 @@ function* fetchForecast() {
         }));
     } catch (e) {
         console.error(e.message);
-        // todo - not sure if return needed
         return yield put(fetchForecastFailed('fetch-general-error'));
     }
 }

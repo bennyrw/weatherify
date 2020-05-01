@@ -29,4 +29,4 @@ export type Coordinates = {
 
 // https://nominatim.org/release-docs/develop/api/Search/
 const getRequestUrl = (location: string) =>
-`https://nominatim.openstreetmap.org/search?q=${encodeURI(location)}&format=json&limit=1`;
+    `https://nominatim.openstreetmap.org/search?q=${encodeURI(location)}&format=json&limit=1`;

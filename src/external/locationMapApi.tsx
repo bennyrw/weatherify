@@ -9,7 +9,7 @@ const ZOOM_LEVEL = 12;
  */
 export async function getLocationMapURL(longitude: number, latitude: number): Promise<string> {
     try {
-        const {x, y, z} = getTileInfo(longitude, latitude, ZOOM_LEVEL);
+        const { x, y, z } = getTileInfo(longitude, latitude, ZOOM_LEVEL);
 
         const response = await fetch(getRequestUrl(x, y, z));
         const blob = await response.blob();
@@ -42,7 +42,7 @@ function long2tile(longitude: number, zoom: number) {
 function lat2tile(latitude: number, zoom: number) {
     return Math.floor(
         (1 - Math.log(Math.tan(latitude * Math.PI / 180) + 1
-        /
-        Math.cos(latitude * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom)
+            /
+            Math.cos(latitude * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom)
     );
 }

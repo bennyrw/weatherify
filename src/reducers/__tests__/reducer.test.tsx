@@ -46,7 +46,7 @@ describe('reducer', () => {
         expect(state).toEqual(expectedState);
     });
 
-    it('failing to fetch a forecast sets the error field', () => {
+    it('failing to fetch a forecast sets the errorKey field', () => {
         // initially try to fetch without setting location
         const fetchAction = fetchForecast();
         state = reducer(state, fetchAction);
@@ -65,12 +65,32 @@ describe('reducer', () => {
         const failed = fetchForecastFailed('Oops!');
         state = reducer(state, failed)
         expectedState.isFetchingForecast = false;
-        expectedState.error = 'Oops!';
+        expectedState.errorKey = 'Oops!';
         expect(state).toEqual(expectedState);
 
         // and a later successful fetch clears it
         state = reducer(state, fetchAction);
-        expect(state.error).toBeUndefined();
+        expect(state.errorKey).toBeUndefined();
+    });
+
+    it('failing to fetch a forecast clears previous forecast', () => {
+        let state = getInitialState();
+        state.location = 'London';
+        state.forecast = {
+            locationMapUrl: 'someMapUrl',
+            dailyWeather: List.of(
+                {
+                    iconUrl: 'someIconUrl',
+                    date: new Date(),
+                    temperatureInCentigrade: 33.2,
+                    pressureInMillibars: 1010,
+                }
+            )
+        };
+
+        state = reducer(state, fetchForecastFailed('error-key'));
+        expect(state.forecast).toBeUndefined();
+        expect(state.errorKey).toBe('error-key');
     });
 
     it('changing day updates state', () => {
@@ -91,7 +111,7 @@ describe('reducer', () => {
 
         state = reducer(state, useFahrenheit);
         expect(state).toEqual(expectedState);
-        
+
         // applying same again does nothing
         state = reducer(state, useFahrenheit);
         expect(state).toEqual(expectedState);
