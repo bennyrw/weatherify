@@ -10,6 +10,11 @@ export const DEBUG = {
 }
 
 /**
+ * Max number of days of forecast weather shown.
+ */
+export const MAX_FORECAST_DAYS = 4;
+
+/**
  * The current locale. In future, could be set by user, taken from Accept Language header, etc.
  */
 export const LOCALE = 'en-GB';

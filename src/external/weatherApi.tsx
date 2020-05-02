@@ -1,21 +1,23 @@
-import { WeatherData } from '../types';
 import { List } from 'immutable';
 
-const MAX_DAYS = 5;
+import { WeatherData } from '../types';
 
 /**
  * Get the upcoming daily weather for a specific location.
  * @param longitude
  * @param latitude 
- * @return Promise yielding up to 5 days of forecasted weather.
+ * @param maxDays The maximum days of forecasted weather.
+ * @return Promise yielding the forecasted weather.
  */
-export async function getLocationDailyWeather(longitude: number, latitude: number): Promise<List<WeatherData>> {
+export async function getLocationDailyWeather(longitude: number, latitude: number,
+    maxDays: number): Promise<List<WeatherData>> {
+
     try {
         const response = await fetch(getRequestUrl(longitude, latitude));
         const json = await response.json();
         const dailyData = json.daily as Array<ApiDailyData>
 
-        return List(dailyData.slice(0, MAX_DAYS).map(parseDailyData));
+        return List(dailyData.slice(0, maxDays).map(parseDailyData));
     } catch (e) {
         throw new Error(`Failed to get weather for location, error: ${e.message}`);
     }
