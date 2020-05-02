@@ -1,27 +1,29 @@
-## Background
+**Weatherify** - responsive web app that turns a location on Earth into a weather forecast for the next several days.
 
-A webapp allowing the user to get the weather forecase for a location. For more information, see the [requirements](Exercise.pdf).
+## Technology
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bootstrapped with [Create React App](https://github.com/facebook/create-react-app), this project also uses:
+* React & Material UI - for rendering and UI components.
+* Redux & Redux-saga - for simple, cross-app state management and async processing.
+* TypeScript - for type-safety.
 
-## Available Scripts
+## Usage
 
-In the project directory, you can run:
+In the project directory, use:
+* `npm run start` to run from source. App is accessible on http://localhost:3000. To easily debug different application states (specifically layouts), see [constants.tsx](./src/constants.tsx).
+* `npm run test` to execute automated tests. The app is not exhaustively unit tested, but has examples of how this can be done for React components and Redux reducers.
+* `npm run build` to bundle and minify the app for deployment to the `build` folder.
 
-### `npm start`
+## Assumptions/Design choices
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Applied the principles of clean coding - avoiding duplication (DRY); comments aiming to explain _why_ not _what_; clear variable/type/function names; etc.
+* Minimised UI text, favouring icons to convey meaning. This would make it easier to support additional languages.
+* Support only newer browsers that provide the `fetch` API. Could extend to add `XHR` support for older browsers easily and only the API accessors in `src/external` would need updating.
 
-The page will reload if you make edits.
+## Extensions
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.
+* Fine tuning of UI elements, adding transitions and beautifying.
+* Ensuring accessibility.
+* Extend logging.
+* Offline-first support.
+* Improve map display so it is better centred over the location. I think I'd need to get adjacent tiles and generate a cropped image.
